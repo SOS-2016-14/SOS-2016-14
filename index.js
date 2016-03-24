@@ -7,8 +7,8 @@ app.get("/about",(req,res) => {
 	console.log("executing");
 	
 	res.write ("<html><body>Pagina presentacion de Jaime Herrera Y Jose Llopis <ul> ");
-	res.write ("<li>Jaime Herrera Varo </li></ul></body></html>");
-
+	res.write ("<li>Jaime Herrera Varo </li>");
+	res.write ("<li>Jose Llopis </li></ul></body></html>");
 	res.end();
 });
 
