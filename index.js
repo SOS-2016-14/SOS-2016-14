@@ -1,19 +1,28 @@
 var express = require ("express");
 var fs = require ("fs");
-var contacts = [];
+
 var app = express();
-app.get("/", (req,res)=>{
-	fs.readFile('contacts.json','utf8',(err,content)=>{
-		console.log("Data read");
-		contacts = JSON.parse(content);
-		res.write("<html><body>___Contacts___<ul>");
-		contacts.forEach((contact) => {
-			res.write("<li> - "+contact.name+" ("+contact.phone+")</li>");
+app.get("/",(req,res) => {
+	console.log("executing");
 
-		});
-		res.write("</ul>______________</body></html>");
-		res.end();
-	});
+	res.write ("Página presentación de Jaime Y Jose");
+	res.end();
 });
+app.get("/about",(req,res) => {
+	console.log("executing");
 
+	res.write ("Presentation page of Jaime Herrera Varo and Jose Llopis Zapata, we will conduct an analysis that compares the temperature with the hotel occupancy");
+	res.end();
+});
+app.get("/about/consumissions",(req,res) => {
+	console.log("executing");
+
+	res.write ("Presentation page of Jaime Herrera Varo. Im analizing the hotel room ocupation for our project");
+	res.end();
+});
+/app.get("/", function(request, response) {
+
+  response.redirect('www.github.com/jaimeweed');
+
+});/
 app.listen(process.env.PORT);
