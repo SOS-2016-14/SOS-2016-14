@@ -6,7 +6,7 @@ var app = express();
 app.get("/about",(req,res) => {
 	console.log("executing");
 	res.write ("Funciona!");
-	res.write ("<html><body>Pagina presentacion de Jaime Herrera Y Jose Llopis"<ul>);
+	res.write ("<html><body>Pagina presentacion de Jaime Herrera Y Jose Llopis <ul>");
 	res.write ("<li>Jaime Herrera Varo</li> <a href="https://github.com/jaimeweed"> Enlace a github </a></ul></body></html>");
 	res.end();
 });
