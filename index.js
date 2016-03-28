@@ -112,15 +112,15 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
 	contacts = [];
 	contacts.push(contacts2);
-	initial.concat();
+	contacts.concat();
 	console.log("New load initial data");
 	res.sendStatus(200);
-})
+});
 
 
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
 	contacts.splice(0,contacts.length);
 	res.sendStatus(200);
-})
+});
 app.listen(process.env.PORT|| 10000);
