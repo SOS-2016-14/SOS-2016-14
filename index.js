@@ -63,6 +63,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var mes = req.params.mes;
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result;
+
 	
 	contacts.forEach(function(value){
 		if(value.year == anio && value.month == mes){
