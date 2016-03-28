@@ -8,7 +8,7 @@ var contacts = [{anio: 2017, mes: "Enero", categoria : 1},{anio: 2017, mes: "Feb
 //app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
-	console.log("executing");
+	//console.log("executing");
 	
 	res.write ("<html><body><center>Pagina presentacion de Jaime Herrera Y Jose Llopis <ul> ");
 	res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a></li>");
@@ -16,7 +16,7 @@ app.get("/about",(req,res) => {
 	res.end();
 });
 app.get("/api/v1/consumissions",(req,res)=> {
-	console.log("new GET of resource consumissions");
+	//console.log("new GET of resource consumissions");
 	res.send(contacts);
 });
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
