@@ -108,6 +108,8 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	else
 		res.sendStatus(404);
 });
+
+
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
 	contacts.splice(0,contacts.length);
