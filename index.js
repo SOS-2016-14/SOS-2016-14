@@ -111,7 +111,7 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 });
 app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
 	contacts = [];
-	contacts.push(contacts2);
+	contacts.push(contacts1);
 	contacts.concat();
 	console.log("New load initial data");
 	res.sendStatus(200);
