@@ -41,7 +41,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var anio = req.params.anio;
 	var mes = req.params.mes;
-	console.log("new GET of resource "+ anio+ " - "+ mes);
+	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result = [];
 	contacts.forEach(function(value){
 		if(value.anio == anio && value.mes == mes){
@@ -54,7 +54,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 		res.sendStatus(404);	
 });
 app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
-	console.log("new PUT of resource");
+	//console.log("new PUT of resource");
 	var anio = req.params.anio;
 	var mes = req.params.mes;
 	var contact = req.body;
@@ -74,12 +74,12 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 		res.sendStatus(404);			
 });
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
-	console.log("New intent of POST of resource");
+	//console.log("New intent of POST of resource");
 	res.sendStatus(405);
 
 });
 app.post("/api/v1/consumissions/:anio/:mes",(req,res)=>{
-	console.log("New intent of POST of resource");
+	//console.log("New intent of POST of resource");
 	res.sendStatus(405);
 
 });
@@ -90,7 +90,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	res.sendStatus(201);
 });
 app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
-	console.log("New DELETE of resource");
+	//console.log("New DELETE of resource");
 	var anio = req.params.anio;
 	var mes = req.params.mes;
 	var ok = false;
@@ -107,7 +107,7 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 		res.sendStatus(404);
 });
 app.delete("/api/v1/consumissions",(req,res)=>{
-	console.log("New Delete of resources");
+	//console.log("New Delete of resources");
 	contacts.splice(0,contacts.length);
 	res.sendStatus(200);
 })
