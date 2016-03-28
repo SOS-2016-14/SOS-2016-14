@@ -54,15 +54,16 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	else
 		res.sendStatus(404);	
 });
-
+app.put("/api/v1/consumissions",(req,res)=> {
+	//console.log("new GET of resource consumissions");
+	res.sendStatus(404);
+});
 app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	//console.log("new PUT of resource");
 	var anio = req.params.anio;
 	var mes = req.params.mes;
 	var contact = req.body;
 	var ok = false;
-	if(anio == "" || mes == "" )
-		res.sendStatus(405);
 	contacts.forEach(function(value, key){
 		if(value.anio == anio && value.mes == mes){
 			contacts[key] = contact;			
@@ -72,7 +73,8 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	});
 	if(ok == true)
 		res.sendStatus(200);
-				
+	else
+		res.sendStatus(404);			
 })
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("New intent of POST of resource");
