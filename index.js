@@ -25,7 +25,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var to = req.query.to;
 	
 	
-	console.log("new GET of resource "+ anio);
+	//console.log("new GET of resource "+ anio);
 	var result = [];
 		contacts.forEach(function(value){
 		if((value.anio == anio && (!from && !to)) || (value.anio == anio && (value.categoria >= from && value.categoria <= to) )){
