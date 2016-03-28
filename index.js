@@ -4,8 +4,8 @@ var fs = require ("fs");
 
 var app = express();
 
-var contacts = [{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
-var contacts1 = [{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
+var contacts = [{year: 2015, month: "January",country: "Germany", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
+var contacts1 = [{year: 2015, month: "January",country: "Germany", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
@@ -47,7 +47,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		});
 	}else{
 		contacts = [];
-		contacts.push(contacts1);
+		contacts=contacts1;
 		contacts.concat();
 		console.log("New load initial data");
 		res.sendStatus(200);
