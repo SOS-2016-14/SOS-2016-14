@@ -4,14 +4,14 @@ var fs = require ("fs");
 
 var app = express();
 
-var contacts = [{anio: 2017, mes: "Enero", categoria : 1},{anio: 2017, mes: "Febrero", categoria : 2},{anio: 2016, mes: "Febrero", categoria : 3}];
+var contacts = [{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
 
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
 	//console.log("executing");
 	
-	res.write ("<html><body><center>Pagina presentacion de Jaime Herrera Y Jose Llopis <ul> ");
+	res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
 	res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a></li>");
 	res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
 	res.end();
