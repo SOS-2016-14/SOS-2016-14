@@ -5,7 +5,7 @@ var fs = require ("fs");
 var app = express();
 
 var contacts = [{year: 2015, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
-var contacts1 = contacts;
+var contacts1 = [{year: 2015, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
