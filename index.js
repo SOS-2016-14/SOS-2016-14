@@ -55,7 +55,6 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 		res.sendStatus(404);	
 });
 app.put("/api/v1/consumissions",(req,res)=> {
-	//console.log("new GET of resource consumissions");
 	res.sendStatus(405);
 });
 app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
