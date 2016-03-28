@@ -2,7 +2,11 @@ var express = require ("express");
 var fs = require ("fs");
 
 var app = express();
+
 var contacts = [{anio: 2017, mes: "Enero", categoria : 1},{anio: 2017, mes: "Febrero", categoria : 2},{anio: 2016, mes: "Febrero", categoria : 3}];
+
+app.use(bodyParser.json());
+
 app.get("/about",(req,res) => {
 	console.log("executing");
 	
