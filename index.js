@@ -5,7 +5,7 @@ var fs = require ("fs");
 var app = express();
 
 var contacts = [{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
-
+var contacts1 = [{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
@@ -110,7 +110,11 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 		res.sendStatus(404);
 });
 app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
-
+	contacts = [];
+	contacts.push(contacts2);
+	initial.concat();
+	console.log("New load initial data");
+	res.sendStatus(200);
 })
 
 
