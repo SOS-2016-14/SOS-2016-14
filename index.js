@@ -82,7 +82,7 @@ app.post("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 app.post("/api/v1/consumissions",(req,res)=>{
 	var contact = req.body;
 	contacts.push(contact);
-	console.log("New POST of resource "+contact.name);
+	//console.log("New POST of resource "+contact.name);
 	res.sendStatus(201);
 });
 app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
