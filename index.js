@@ -74,7 +74,7 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	if(ok == true)
 		res.sendStatus(200);
 	else
-		res.sendStatus(405);			
+		res.sendStatus(404);			
 })
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("New intent of POST of resource");
