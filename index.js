@@ -25,11 +25,12 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var from = req.query.from;
 	var to = req.query.to;
 	
-	
+	console.log(from);
+	console.log(to);
 	//console.log("new GET of resource "+ anio);
 	var result = [];
 		contacts.forEach(function(value){
-		if((value.year == anio && (!from && !to)) || (value.year == anio && (value.categoria >= from && value.category <= to) )){
+		if((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to) )){
 			result.push(value);
 		}
 	});
@@ -108,6 +109,9 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	else
 		res.sendStatus(404);
 });
+app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
+
+})
 
 
 app.delete("/api/v1/consumissions",(req,res)=>{
