@@ -64,7 +64,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result;
 
-	
+
 	contacts.forEach(function(value){
 		if(value.year == anio && value.month == mes){
 			result = value;
@@ -96,6 +96,7 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	else
 		res.sendStatus(404);			
 })
+
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("New intent of POST of resource");
 	res.sendStatus(405);
