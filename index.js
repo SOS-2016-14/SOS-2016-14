@@ -21,13 +21,13 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	res.send(contacts);
 });
 
-app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
+/*app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
 	contacts = [];
 	contacts.push(contacts1);
 	contacts.concat();
 	console.log("New load initial data");
 	res.sendStatus(200);
-});
+});*/
 
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var anio = req.params.anio;
@@ -38,11 +38,20 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	console.log(to);
 	//console.log("new GET of resource "+ anio);
 	var result = [];
+
+	if(anio!="loadInitialData"){
 		contacts.forEach(function(value){
-		if((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to) )){
-			result.push(value);
-		}
-	});
+			if((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to) )){
+				result.push(value);
+			}
+		});
+	}else{
+		contacts = [];
+		contacts.push(contacts1);
+		contacts.concat();
+		console.log("New load initial data");
+		res.sendStatus(200);
+	}
 		
 	if(result.length!=0)
 		res.send(result);
