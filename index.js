@@ -61,7 +61,7 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var mes = req.params.mes;
 	var contact = req.body;
 	var ok = false;
-	if(anio == null || mes == null )
+	if(anio == "" || mes == "" )
 		res.sendStatus(405);
 	contacts.forEach(function(value, key){
 		if(value.anio == anio && value.mes == mes){
