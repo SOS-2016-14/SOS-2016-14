@@ -20,6 +20,15 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	//console.log("new GET of resource consumissions");
 	res.send(contacts);
 });
+
+app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
+	contacts = [];
+	contacts.push(contacts1);
+	contacts.concat();
+	console.log("New load initial data");
+	res.sendStatus(200);
+});
+
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var anio = req.params.anio;
 	var from = req.query.from;
@@ -109,13 +118,7 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	else
 		res.sendStatus(404);
 });
-app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
-	contacts = [];
-	contacts.push(contacts1);
-	contacts.concat();
-	console.log("New load initial data");
-	res.sendStatus(200);
-});
+
 
 
 app.delete("/api/v1/consumissions",(req,res)=>{
