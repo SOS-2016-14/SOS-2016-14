@@ -29,7 +29,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("new GET of resource "+ anio);
 	var result = [];
 		contacts.forEach(function(value){
-		if((value.anio == anio && (!from && !to)) || (value.anio == anio && (value.categoria >= from && value.categoria <= to) )){
+		if((value.year == anio && (!from && !to)) || (value.year == anio && (value.categoria >= from && value.category <= to) )){
 			result.push(value);
 		}
 	});
@@ -45,7 +45,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result = [];
 	contacts.forEach(function(value){
-		if(value.anio == anio && value.mes == mes){
+		if(value.year == anio && value.month == mes){
 			result.push(value);
 		}
 	});
@@ -64,7 +64,7 @@ app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var contact = req.body;
 	var ok = false;
 	contacts.forEach(function(value, key){
-		if(value.anio == anio && value.mes == mes){
+		if(value.year == anio && value.month == mes){
 			contacts[key] = contact;			
 			ok = true
 		}
@@ -98,7 +98,7 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var ok = false;
 
 	contacts.forEach(function(value, key){
-		if(value.anio == anio && value.mes == mes){
+		if(value.year == anio && value.month == mes){
 			contacts.splice(key,1);
 			ok = true;
 		}
