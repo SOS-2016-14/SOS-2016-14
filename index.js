@@ -42,7 +42,6 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var result = [];
 
 
-
 	if(anio!="loadInitialData"){
 		contacts.forEach(function(value){
 			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to))) || ((value.month == anio && (!from && !to)) || (value.month == anio && (value.category >= from && value.category <= to)))) {
@@ -142,7 +141,7 @@ app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
-	contacts = [];
+	contacts.splice(0,contacts.length);
 	res.sendStatus(200);
 });
 app.listen(process.env.PORT|| 10000);
