@@ -16,6 +16,7 @@ app.get("/about",(req,res) => {
 	res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
 	res.end();
 });
+
 app.get("/api/v1/consumissions",(req,res)=> {
 	//console.log("new GET of resource consumissions");
 	res.send(contacts);
