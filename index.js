@@ -46,7 +46,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 			}
 		});
 	}else{
-		contacts = [];
+		
 		contacts = contacts1;
 		contacts.concat();
 		console.log("New load initial data");
