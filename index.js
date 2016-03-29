@@ -45,6 +45,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 				result.push(value);
 			}
 		});
+		
 	}else{
 		
 		contacts = contacts1;
@@ -53,7 +54,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		res.sendStatus(200);
 	}
 		
-		
+
 	if(result.length!=0)
 		res.send(result);
 	else
