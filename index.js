@@ -45,7 +45,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 				result.push(value);
 			}
 		});
-		
+
 	}else{
 		
 		contacts = contacts1;
@@ -59,6 +59,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		res.send(result);
 	else
 		res.sendStatus(404);
+	
 });
 app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var anio = req.params.anio;
