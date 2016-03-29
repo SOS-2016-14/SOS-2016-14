@@ -41,6 +41,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("new GET of resource "+ anio);
 	var result = [];
 
+
 	if(anio!="loadInitialData"){
 		contacts.forEach(function(value){
 			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to))) || ((value.month == anio && (!from && !to)) || (value.month == anio && (value.category >= from && value.category <= to)))) {
