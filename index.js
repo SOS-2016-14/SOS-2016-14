@@ -68,7 +68,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 	var anio = req.params.anio;
 	var mes = req.params.mes;
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
-	var result;
+	var result = null;
 
 
 	contacts.forEach(function(value){
@@ -76,7 +76,7 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 			result = value;
 		}
 	});
-	if(result.length!=0)
+	if(result != null)
 		res.send(result);
 	else
 		res.sendStatus(404);	
