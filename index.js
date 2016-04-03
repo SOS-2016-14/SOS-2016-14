@@ -4,8 +4,8 @@ var fs = require ("fs");
 
 var app = express();
 
-var contacts = [{year: 2015, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
-var contacts1 = [{year: 2015, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2017, month: "March",country: "Spain", category : 2, theme: "spa" },{year: 2017, month: "January",country: "Spain", category : 1, theme: "resort" },{year: 2015, month: "April", country: "Spain", category : 1, theme: "resort" },{year: 2016, month: "January",country: "Germany", category : 3, theme: "resort" }];
+var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
+var contacts1 = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
@@ -64,15 +64,15 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		res.sendStatus(404);
 	
 });
-app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
+app.get("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	var anio = req.params.anio;
-	var mes = req.params.mes;
+	var city = req.params.city;
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result = null;
 
 
 	contacts.forEach(function(value){
-		if(value.year == anio && value.month == mes){
+		if(value.year == anio && value.city == city){
 			result = value;
 		}
 	});
@@ -84,14 +84,14 @@ app.get("/api/v1/consumissions/:anio/:mes",(req,res)=>{
 app.put("/api/v1/consumissions",(req,res)=> {
 	res.sendStatus(405);
 });
-app.put("/api/v1/consumissions/:anio/:mes",(req,res)=>{
+app.put("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	//console.log("new PUT of resource");
 	var anio = req.params.anio;
-	var mes = req.params.mes;
+	var city = req.params.city;
 	var contact = req.body;
 	var ok = false;
 	contacts.forEach(function(value, key){
-		if(value.year == anio && value.month == mes){
+		if(value.year == anio && value.city == city){
 			contacts[key] = contact;			
 			ok = true
 		}
@@ -108,7 +108,7 @@ app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	res.sendStatus(405);
 
 });
-app.post("/api/v1/consumissions/:anio/:mes",(req,res)=>{
+app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	//console.log("New intent of POST of resource");
 	res.sendStatus(405);
 
@@ -119,14 +119,14 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	//console.log("New POST of resource "+contact.name);
 	res.sendStatus(201);
 });
-app.delete("/api/v1/consumissions/:anio/:mes",(req,res)=>{
+app.delete("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	var anio = req.params.anio;
-	var mes = req.params.mes;
+	var city = req.params.city;
 	var ok = false;
 
 	contacts.forEach(function(value, key){
-		if(value.year == anio && value.month == mes){
+		if(value.year == anio && value.city == city){
 			contacts.splice(key,1);
 			ok = true;
 		}
