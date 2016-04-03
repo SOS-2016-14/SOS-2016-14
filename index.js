@@ -84,10 +84,11 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 app.put("/api/v1/consumissions",(req,res)=> {
 	res.sendStatus(405);
 });
-app.put("/api/v1/consumissions/:anio/:city",(req,res)=>{
+app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	//console.log("new PUT of resource");
-	var anio = req.params.anio;
 	var city = req.params.city;
+	var anio = req.params.anio;
+	
 	var contact = req.body;
 	var ok = false;
 	contacts.forEach(function(value, key){
@@ -100,7 +101,7 @@ app.put("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	if(ok == true)
 		res.sendStatus(200);
 	else
-		res.sendStatus(404);			
+		res.send("Prueba");			
 })
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
