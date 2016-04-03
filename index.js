@@ -61,25 +61,25 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	if(result.length!=0)
 		res.send(result);
 	else
-		res.send("Prueba");
+		res.sendStatus(404);
 	
 });
-app.get("/api/v1/consumissions/:anio/:city",(req,res)=>{
-	var anio = req.params.anio;
+app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var city = req.params.city;
+	var anio = req.params.anio;
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result = null;
 
 
 	contacts.forEach(function(value){
-		if(value.year == anio && value.city == city){
+		if(value.city == city && value.year == anio){
 			result = value;
 		}
 	});
 	if(result != null)
 		res.send(result);
 	else
-		res.send("Prueba");	
+		res.sendStatus(404);	
 });
 app.put("/api/v1/consumissions",(req,res)=> {
 	res.sendStatus(405);
