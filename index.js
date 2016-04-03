@@ -61,7 +61,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	if(result.length!=0)
 		res.send(result);
 	else
-		res.sendStatus(404);
+		res.send("Prueba");
 	
 });
 app.get("/api/v1/consumissions/:anio/:city",(req,res)=>{
