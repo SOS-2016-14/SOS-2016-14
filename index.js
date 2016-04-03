@@ -127,12 +127,14 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	
 	var city = req.params.city;
 	var ok = false;
-	var i = contacts.length;
-	
-	for( i-1; i>=0 ;i--){
-        if(contacts[i].city == city)
-            contacts.splice(i,1);
-        	ok == true;
+	var i = contacts.length-1;
+	contacts.forEach(function(value, key){
+		
+		if(value.city == city){
+			contacts.splice(i,1);
+			ok = true;
+			i--;
+		}
 
 	});
 	if(ok == true)
@@ -140,7 +142,6 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	else
 		res.sendStatus(404);
 });
-
 
 
 
