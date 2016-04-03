@@ -122,14 +122,14 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	//console.log("New POST of resource "+contact.name);
 	res.sendStatus(201);
 });
-app.delete("/api/v1/consumissions/:anio/:city",(req,res)=>{
+app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
-	var anio = req.params.anio;
+	
 	var city = req.params.city;
 	var ok = false;
 
 	contacts.forEach(function(value, key){
-		if(value.year == anio && value.city == city){
+		if(value.city == city){
 			contacts.splice(key,1);
 			ok = true;
 		}
