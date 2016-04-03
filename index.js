@@ -127,9 +127,9 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	
 	var city = req.params.city;
 	var ok = false;
-
+	var diference = 0;
 	contacts.forEach(function(value, key){
-		var diference = 0;
+		
 		if(value.city == city){
 			contacts.splice(key-diference,1);
 			ok = true;
