@@ -133,6 +133,7 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 			contacts.splice(key,1);
 			ok = true;
 		}
+		
 	});
 	if(ok == true)
 		res.sendStatus(200);
