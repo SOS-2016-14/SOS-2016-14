@@ -79,7 +79,7 @@ app.get("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	if(result != null)
 		res.send(result);
 	else
-		res.sendStatus(404);	
+		res.send("Prueba");	
 });
 app.put("/api/v1/consumissions",(req,res)=> {
 	res.sendStatus(405);
@@ -100,7 +100,7 @@ app.put("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	if(ok == true)
 		res.sendStatus(200);
 	else
-		res.send("Prueba");			
+		res.sendStatus(404);			
 })
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
