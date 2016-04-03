@@ -145,6 +145,7 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 
 
 
+
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
 	contacts = [];
