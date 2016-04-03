@@ -130,10 +130,10 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 
 	contacts.forEach(function(value, key){
 		if(value.city == city){
-			contacts.splice(key,1);
+			contacts.reverse().splice(key,1);
 			ok = true;
 		}
-		
+
 	});
 	if(ok == true)
 		res.sendStatus(200);
