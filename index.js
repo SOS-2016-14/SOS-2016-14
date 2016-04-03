@@ -44,7 +44,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 
 	if(anio!="loadInitialData"){
 		contacts.forEach(function(value){
-			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.category >= from && value.category <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.category >= from && value.category <= to)))) {
+			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
 				result.push(value);
 			}
 		});
