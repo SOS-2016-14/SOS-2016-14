@@ -61,6 +61,8 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	if(result.length!=0)
 		res.send(result);
 	else
+		res.send(from);
+		res.send(to);
 		res.sendStatus(404);
 	
 });
