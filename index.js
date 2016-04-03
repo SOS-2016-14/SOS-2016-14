@@ -127,7 +127,11 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	
 	var city = req.params.city;
 	var ok = false;
-	var i = 0;
+	for(var i = contacts.length - 1; i>=0 ;i--){
+        if(contacts[i].city == city)
+            contacts.splice(i,1);
+    }
+	/*var i = 0;
 	contacts.forEach(function(value, key){
 		
 		if(value.city == city){
@@ -139,7 +143,7 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 		}
 		i++;
 
-	});
+	});*/
 	if(ok == true)
 		res.sendStatus(200);
 	else
