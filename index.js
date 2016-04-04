@@ -122,6 +122,13 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	//console.log("New POST of resource "+contact.name);
 	res.sendStatus(201);
 });
+
+app.delete("/api/v1/consumissions",(req,res)=>{
+	//console.log("New Delete of resources");
+	contacts = [];
+	res.sendStatus(200);
+});
+
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	
@@ -155,11 +162,25 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	
 }});
 
+app.delete("/consumissions/:city/:year",(req,res)=>{
+	console.log("New DELETE of resource");
+	var anio = req.params.year;
+	var city = req.params.city;
+	var ok = false;
 
-
-app.delete("/api/v1/consumissions",(req,res)=>{
-	//console.log("New Delete of resources");
-	contacts = [];
-	res.sendStatus(200);
+	contacts.forEach(function(value, key){
+		if(value.anio == anio && value.mes == mes){
+			contacts.splice(key,1);
+			ok = true;
+		}
+	});
+	if(ok == true)
+		res.sendStatus(200);
+	else
+		res.sendStatus(404);
 });
+
+
+
+
 app.listen(process.env.PORT|| 10000);
