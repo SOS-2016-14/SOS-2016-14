@@ -169,7 +169,7 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	var ok = false;
 
 	contacts.forEach(function(value, key){
-		if(value.anio == anio && value.mes == mes){
+		if(value.year == anio && value.city == city){
 			contacts.splice(key,1);
 			ok = true;
 		}
