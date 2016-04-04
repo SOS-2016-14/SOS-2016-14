@@ -101,7 +101,12 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	}
 });
 app.put("/api/v1/consumissions",(req,res)=> {
-	res.sendStatus(405);
+	var apikey = req.query.apikey;
+	if(apikey == uuid){
+		res.sendStatus(405);
+	}else{
+		res.sendStatus(401);
+	}
 });
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	//console.log("new PUT of resource");
