@@ -126,23 +126,27 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	
 	var city = req.params.city;
-	var ok = false;
-	var i = contacts.length - 1;
+	
+	
 	var suplente = [];
 
 	contacts.forEach(function(value, key){
 		if(value.city != city){
 			suplente.push(value);			
-			ok = true
+			
 		}
 
 	});
+	if(suplente.length == contacts.length){
+		res.send(404);
+	}
+	
+	else{
 	contacts = suplente;
-
-		if(ok == true)
-		res.sendStatus(200);
-	else
-		res.sendStatus(404);
+	}
+	
+	res.sendStatus(200);
+	
 });
 
 
