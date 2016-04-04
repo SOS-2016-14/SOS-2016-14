@@ -25,14 +25,8 @@ app.get("/about",(req,res) => {
 
 
 app.get("/api/v1/consumissions",(req,res)=> {
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
 	//console.log("new GET of resource consumissions");
-		res.send(contacts);
-	}else{
-		res.send("Prueba");
-
-	}
+	res.send(contacts);
 });
 
 /*app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
@@ -47,46 +41,40 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var anio = req.params.anio;
 	var from = req.query.from;
 	var to = req.query.to;
-	var apikey = req.query.apikey;
-
-	if(apikey == uuid){
-		console.log(from);
-		console.log(to);
-		//console.log("new GET of resource "+ anio);
-		var result = [];
+	
+	console.log(from);
+	console.log(to);
+	//console.log("new GET of resource "+ anio);
+	var result = [];
 
 
-		if(anio!="loadInitialData"){
-			contacts.forEach(function(value){
-				if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
-					result.push(value);
-				}
-			});
+	if(anio!="loadInitialData"){
+		contacts.forEach(function(value){
+			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
+				result.push(value);
+			}
+		});
 
-		}else{
-			
-			contacts = contacts1;
-			//contacts.concat();
-			console.log("New load initial data");
-			res.sendStatus(200);
-		}
-			
-
-		if(result.length!=0)
-			res.send(result);
-		else
-			res.sendStatus(404);
 	}else{
-		res.sendStatus(401);
+		
+		contacts = contacts1;
+		//contacts.concat();
+		console.log("New load initial data");
+		res.sendStatus(200);
 	}
+		
+
+	if(result.length!=0)
+		res.send(result);
+	else
+		res.sendStatus(404);
+	
 });
 app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var city = req.params.city;
 	var anio = req.params.anio;
 	//console.log("new GET of resource "+ anio+ " - "+ mes);
 	var result = [];
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
 
 
 	contacts.forEach(function(value){
@@ -97,114 +85,83 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	if(result.length != 0)
 		res.send(result);
 	else
-		res.sendStatus(404);
-	}else{
-		res.sendStatus(401);
-	}	
+		res.sendStatus(404);	
 });
 app.put("/api/v1/consumissions",(req,res)=> {
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}
+	res.sendStatus(405);
 });
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	//console.log("new PUT of resource");
 	var city = req.params.city;
 	var anio = req.params.anio;
-	var apikey = req.query.apikey;
 	
-	if(apikey == uuid){
-		var contact = req.body;
-		var ok = false;
-		contacts.forEach(function(value, key){
-			if(value.year == anio && value.city == city){
-				contacts[key] = contact;			
-				ok = true
-			}
+	var contact = req.body;
+	var ok = false;
+	contacts.forEach(function(value, key){
+		if(value.year == anio && value.city == city){
+			contacts[key] = contact;			
+			ok = true
+		}
 
-		});
+	});
 	if(ok == true)
 		res.sendStatus(200);
 	else
-		res.sendStatus(404);			
-	}else{
-		res.sendStatus(401);
-	}
-});
+		res.send("Prueba");			
+})
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("New intent of POST of resource");
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}
+	res.sendStatus(405);
+
 });
 app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	//console.log("New intent of POST of resource");
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}
+	res.sendStatus(405);
+
 });
 app.post("/api/v1/consumissions",(req,res)=>{
 	var contact = req.body;
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		contacts.push(contact);
-		//console.log("New POST of resource "+contact.name);
-		res.sendStatus(201);
-	}else{
-		res.sendStatus(401);
-	}
+	contacts.push(contact);
+	//console.log("New POST of resource "+contact.name);
+	res.sendStatus(201);
 });
 
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		contacts = [];
-		res.sendStatus(200);
-	}else{
-		res.sendStatus(401);
-	}
+	contacts = [];
+	res.sendStatus(200);
 });
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	
 	var city = req.params.city;
+	
+	
 	var suplente = [];
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
 
-		contacts.forEach(function(value, key){
-			if(value.city != city){
-				suplente.push(value);			
-				
-			}
+	contacts.forEach(function(value, key){
+		if(value.city != city){
+			suplente.push(value);			
+			
+		}
 
-		});
-		if(suplente.length == contacts.length){
-			res.send(404);
-		}else{
-			if(suplente.length==0){
-				contacts = [];
-				res.sendStatus(200);
-			}else{
-				contacts = suplente;
-				res.sendStatus(200);
-			}
-		}	
-	}else{
-		res.sendStatus(401);
+	});
+	if(suplente.length == contacts.length){
+		res.send(404);
 	}
+	
+	else{
+	if(suplente.length==0){
+		contacts = [];
+		res.sendStatus(200);
+	}else{
+		contacts = suplente;
+		res.sendStatus(200);
+	}
+	
+	
 	
 	
 }});
@@ -214,8 +171,6 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	var anio = req.params.year;
 	var city = req.params.city;
 	var ok = false;
-	var apikey = req.query.apikey;
-	if(apikey == uuid){
 
 	contacts.forEach(function(value, key){
 		if(value.year == anio && value.city == city){
@@ -227,9 +182,6 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 		res.sendStatus(200);
 	else
 		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}
 });
 
 
