@@ -6,15 +6,21 @@ var app = express();
 
 var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
 var contacts1 = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
+var uuid = "b3b1f308-20e2-65b2-7fa7-4ef28fe78030";
+
 app.use(bodyParser.json());
 
 app.get("/about",(req,res) => {
 	//console.log("executing");
-	
-	res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
-	res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a></li>");
-	res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
-	res.end();
+	var apikey = req.query.apikey;
+	if(apikey == uuid){
+		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
+		res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a></li>");
+		res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
+		res.end();
+	}else{
+		res.sendStatus(401);
+	}
 });
 
 
@@ -61,8 +67,6 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	if(result.length!=0)
 		res.send(result);
 	else
-		
-		
 		res.sendStatus(404);
 	
 });
