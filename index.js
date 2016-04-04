@@ -43,36 +43,39 @@ app.get("/api/v1/consumissions",(req,res)=> {
 });*/
 
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
-	var anio = req.params.anio;
-	var from = req.query.from;
-	var to = req.query.to;
-	
-	console.log(from);
-	console.log(to);
-	//console.log("new GET of resource "+ anio);
-	var result = [];
+		var apikey = req.query.apikey;
+	if(apikey == uuid){
+		var anio = req.params.anio;
+		var from = req.query.from;
+		var to = req.query.to;
+		
+		//console.log("new GET of resource "+ anio);
+		var result = [];
 
 
-	if(anio!="loadInitialData"){
-		contacts.forEach(function(value){
-			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
-				result.push(value);
-			}
-		});
+		if(anio!="loadInitialData"){
+			contacts.forEach(function(value){
+				if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
+					result.push(value);
+				}
+			});
 
+		}else{
+			
+			contacts = contacts1;
+			//contacts.concat();
+			console.log("New load initial data");
+			res.sendStatus(200);
+		}
+			
+
+		if(result.length!=0)
+			res.send(result);
+		else
+			res.sendStatus(404);
 	}else{
-		
-		contacts = contacts1;
-		//contacts.concat();
-		console.log("New load initial data");
-		res.sendStatus(200);
-	}
-		
-
-	if(result.length!=0)
-		res.send(result);
-	else
-		res.sendStatus(404);
+		res.sendStatus(401);
+	}	
 	
 });
 app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
