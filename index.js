@@ -128,30 +128,18 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	var city = req.params.city;
 	var ok = false;
 	var i = contacts.length - 1;
-	foreach(contacts as $key => $tag_name)
-	{
-	    if($tag_name.city == city)
-	        unset(contacts[$key];
-	}
-	/*for( i>=0 ;i--){
-        if(contacts[i].city == city)
-            contacts.splice(i,1);
-    }
-	var i = 0;*/
-	contacts.forEach(function(i){
-		
-		if(contacts[i].city == city){
-	
-			contacts.splice(i,1);
-			ok = true;
-			
-			
+	var suplente = [];
+
+	contacts.forEach(function(value, key){
+		if(value.city != city){
+			suplente.push(value);			
+			ok = true
 		}
-		i++;
-		
 
 	});
-	if(ok == true)
+	contacts = suplente;
+
+		if(ok == true)
 		res.sendStatus(200);
 	else
 		res.sendStatus(404);
