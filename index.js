@@ -142,12 +142,18 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	}
 	
 	else{
-	contacts = suplente;
+	if(suplente.length==0){
+		contacts = [];
+		res.sendStatus(200);
+	}else{
+		contacts = suplente;
+		res.sendStatus(200);
 	}
 	
-	res.sendStatus(200);
 	
-});
+	
+	
+}});
 
 
 
