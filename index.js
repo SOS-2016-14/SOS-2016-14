@@ -202,21 +202,27 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 });
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
-	console.log("New DELETE of resource");
-	var anio = req.params.year;
-	var city = req.params.city;
-	var ok = false;
+	var apikey = req.query.apikey;
 
-	contacts.forEach(function(value, key){
-		if(value.year == anio && value.city == city){
-			contacts.splice(key,1);
-			ok = true;
-		}
-	});
-	if(ok == true)
-		res.sendStatus(200);
-	else
-		res.sendStatus(405);
+	if(apikey == uuid){
+		console.log("New DELETE of resource");
+		var anio = req.params.year;
+		var city = req.params.city;
+		var ok = false;
+
+		contacts.forEach(function(value, key){
+			if(value.year == anio && value.city == city){
+				contacts.splice(key,1);
+				ok = true;
+			}
+		});
+		if(ok == true)
+			res.sendStatus(200);
+		else
+			res.sendStatus(405);
+	}else{
+		res.sendStatus(401);
+	}	
 });
 
 
