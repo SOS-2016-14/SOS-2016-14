@@ -28,9 +28,9 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 	//console.log("new GET of resource consumissions");
-	res.send(contacts);
+		res.send(contacts);
 	}else{
-	res.send("Prueba");
+		res.send("Prueba");
 
 	}
 });
@@ -50,32 +50,32 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	var apikey = req.query.apikey;
 
 	if(apikey == uuid){
-	console.log(from);
-	console.log(to);
-	//console.log("new GET of resource "+ anio);
-	var result = [];
+		console.log(from);
+		console.log(to);
+		//console.log("new GET of resource "+ anio);
+		var result = [];
 
 
-	if(anio!="loadInitialData"){
-		contacts.forEach(function(value){
-			if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
-				result.push(value);
-			}
-		});
+		if(anio!="loadInitialData"){
+			contacts.forEach(function(value){
+				if(((value.year == anio && (!from && !to)) || (value.year == anio && (value.year >= from && value.year <= to))) || ((value.city == anio && (!from && !to)) || (value.city == anio && (value.year>= from && value.year <= to)))) {
+					result.push(value);
+				}
+			});
 
-	}else{
-		
-		contacts = contacts1;
-		//contacts.concat();
-		console.log("New load initial data");
-		res.sendStatus(200);
-	}
-		
+		}else{
+			
+			contacts = contacts1;
+			//contacts.concat();
+			console.log("New load initial data");
+			res.sendStatus(200);
+		}
+			
 
-	if(result.length!=0)
-		res.send(result);
-	else
-		res.sendStatus(404);
+		if(result.length!=0)
+			res.send(result);
+		else
+			res.sendStatus(404);
 	}else{
 		res.sendStatus(401);
 	}
@@ -105,9 +105,9 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 app.put("/api/v1/consumissions",(req,res)=> {
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
-	res.sendStatus(405);
+		res.sendStatus(405);
 	}else{
-	res.sendStatus(401);
+		res.sendStatus(401);
 	}
 });
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
@@ -117,15 +117,15 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var apikey = req.query.apikey;
 	
 	if(apikey == uuid){
-	var contact = req.body;
-	var ok = false;
-	contacts.forEach(function(value, key){
-		if(value.year == anio && value.city == city){
-			contacts[key] = contact;			
-			ok = true
-		}
+		var contact = req.body;
+		var ok = false;
+		contacts.forEach(function(value, key){
+			if(value.year == anio && value.city == city){
+				contacts[key] = contact;			
+				ok = true
+			}
 
-	});
+		});
 	if(ok == true)
 		res.sendStatus(200);
 	else
@@ -133,35 +133,35 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	}else{
 		res.sendStatus(401);
 	}
-})
+});
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	//console.log("New intent of POST of resource");
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
-	res.sendStatus(405);
+		res.sendStatus(405);
 	}else{
-	res.sendStatus(401);
+		res.sendStatus(401);
 	}
 });
 app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	//console.log("New intent of POST of resource");
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
-	res.sendStatus(405);
+		res.sendStatus(405);
 	}else{
-	res.sendStatus(401);
+		res.sendStatus(401);
 	}
 });
 app.post("/api/v1/consumissions",(req,res)=>{
 	var contact = req.body;
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
-	contacts.push(contact);
-	//console.log("New POST of resource "+contact.name);
-	res.sendStatus(201);
+		contacts.push(contact);
+		//console.log("New POST of resource "+contact.name);
+		res.sendStatus(201);
 	}else{
-	res.sendStatus(401);
+		res.sendStatus(401);
 	}
 });
 
@@ -169,10 +169,10 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
-	contacts = [];
-	res.sendStatus(200);
+		contacts = [];
+		res.sendStatus(200);
 	}else{
-	res.sendStatus(401);
+		res.sendStatus(401);
 	}
 });
 
@@ -184,26 +184,24 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 
-	contacts.forEach(function(value, key){
-		if(value.city != city){
-			suplente.push(value);			
-			
-		}
+		contacts.forEach(function(value, key){
+			if(value.city != city){
+				suplente.push(value);			
+				
+			}
 
-	});
-	if(suplente.length == contacts.length){
-		res.send(404);
-	}
-	
-	else{
-	if(suplente.length==0){
-		contacts = [];
-		res.sendStatus(200);
-	}else{
-		contacts = suplente;
-		res.sendStatus(200);
-	}
-	
+		});
+		if(suplente.length == contacts.length){
+			res.send(404);
+		}else{
+			if(suplente.length==0){
+				contacts = [];
+				res.sendStatus(200);
+			}else{
+				contacts = suplente;
+				res.sendStatus(200);
+			}
+		}	
 	}else{
 		res.sendStatus(401);
 	}
