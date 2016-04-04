@@ -101,21 +101,27 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var anio = req.params.anio;
 	var contact = req.body;
 	var ok = false;
+	var cont = 0;
+	
 	if(apikey == uuid){	
 		
 
 		contacts.forEach(function(value, key){
 			if(value.year == anio && value.city == city){
+				cont++;
 				contacts[key] = contact;			
 				ok = true
 			}
 
 		});
-
-		if(ok == true)
-			res.sendStatus(200);
-		else
-			res.sendStatus(404);;	
+		if(cont>1){
+			if(ok == true)
+				res.sendStatus(200);
+			else
+				res.sendStatus(404);
+		}else{
+			res.sendStatus(409);
+		}	
 	}else{
 		res.sendStatus(401);
 	}		
