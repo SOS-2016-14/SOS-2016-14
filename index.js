@@ -143,10 +143,16 @@ app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	}
 });
 app.post("/api/v1/consumissions",(req,res)=>{
-	var contact = req.body;
-	contacts.push(contact);
-	//console.log("New POST of resource "+contact.name);
-	res.sendStatus(201);
+	var apikey = req.query.apikey;
+
+	if(apikey == uuid){
+		var contact = req.body;
+		contacts.push(contact);
+		//console.log("New POST of resource "+contact.name);
+		res.sendStatus(201);
+	}else{
+		res.sendStatus(401);
+	}
 });
 
 app.delete("/api/v1/consumissions",(req,res)=>{
