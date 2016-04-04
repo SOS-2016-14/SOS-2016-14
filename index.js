@@ -97,11 +97,12 @@ app.put("/api/v1/consumissions",(req,res)=> {
 
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var apikey = req.query.apikey;
-	//if(apikey == uuid){	
-		var city = req.params.city;
-		var anio = req.params.anio;
-		var contact = req.body;
-		var ok = false;
+	var city = req.params.city;
+	var anio = req.params.anio;
+	var contact = req.body;
+	var ok = false;
+	if(apikey == uuid){	
+		
 
 		contacts.forEach(function(value, key){
 			if(value.year == anio && value.city == city){
@@ -115,9 +116,9 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 			res.sendStatus(200);
 		else
 			res.send("Prueba");	
-	/*}else{
+	}else{
 		res.sendStatus(401);
-	}		*/
+	}		
 })
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
