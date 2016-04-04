@@ -69,15 +69,15 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		var city = req.params.city;
 		var anio = req.params.anio;
 		//console.log("new GET of resource "+ anio+ " - "+ mes);
-		var result = [];
+		var result = "";
 
 
 		contacts.forEach(function(value){
 			if(value.city == city && value.year == anio){
-				result.push(value);
+				result = value;
 			}
 		});
-		if(result.length != 0)
+		if(result != "")
 			res.send(result);
 		else
 			res.sendStatus(404);	
