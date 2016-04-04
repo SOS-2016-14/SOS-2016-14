@@ -115,84 +115,109 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		if(ok == true)
 			res.sendStatus(200);
 		else
-			res.send("Prueba");	
+			res.sendStatus(404);;	
 	}else{
 		res.sendStatus(401);
 	}		
-})
+});
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
-	//console.log("New intent of POST of resource");
-	res.sendStatus(405);
+	var apikey = req.query.apikey;
+
+	if(apikey == uuid){
+		res.sendStatus(405);
+	}else{
+		res.sendStatus(401);
+	}	
+	
 
 });
+
 app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
-	//console.log("New intent of POST of resource");
-	res.sendStatus(405);
+	var apikey = req.query.apikey;
 
+	if(apikey == uuid){
+	//console.log("New intent of POST of resource");
+		res.sendStatus(405);
+	}else{
+		res.sendStatus(401);
+	}
 });
+
 app.post("/api/v1/consumissions",(req,res)=>{
+	var apikey = req.query.apikey;
 	var contact = req.body;
-	contacts.push(contact);
-	//console.log("New POST of resource "+contact.name);
-	res.sendStatus(201);
+
+	if(apikey == uuid){
+		contacts.push(contact);
+		res.sendStatus(201);
+	}else{
+		res.sendStatus(401);
+	}
 });
 
 app.delete("/api/v1/consumissions",(req,res)=>{
-	//console.log("New Delete of resources");
-	contacts = [];
-	res.sendStatus(200);
-});
+	var apikey = req.query.apikey;
 
-app.delete("/api/v1/consumissions/:city",(req,res)=>{
-	//console.log("New DELETE of resource");
-	
-	var city = req.params.city;
-	
-	
-	var suplente = [];
-
-	contacts.forEach(function(value, key){
-		if(value.city != city){
-			suplente.push(value);			
-			
-		}
-
-	});
-	if(suplente.length == contacts.length){
-		res.send(404);
-	}
-	
-	else{
-	if(suplente.length==0){
+	if(apikey == uuid){
 		contacts = [];
 		res.sendStatus(200);
 	}else{
-		contacts = suplente;
-		res.sendStatus(200);
+		res.sendStatus(401);
 	}
-	
-	
-	
-	
+});
+
+app.delete("/api/v1/consumissions/:city",(req,res)=>{
+	var apikey = req.query.apikey;
+
+	if(apikey == uuid){
+		var city = req.params.city;
+		var suplente = [];
+
+		contacts.forEach(function(value, key){
+			if(value.city != city){
+				suplente.push(value);			
+			}
+		});
+		if(suplente.length == contacts.length){
+			res.send(404);
+		}
+		
+		else{
+		if(suplente.length==0){
+			contacts = [];
+			res.sendStatus(200);
+		}else{
+			contacts = suplente;
+			res.sendStatus(200);
+		}
+	}else{
+		res.sendStatus(401);
+	}	
 }});
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
-	console.log("New DELETE of resource");
-	var anio = req.params.year;
-	var city = req.params.city;
-	var ok = false;
+	var apikey = req.query.apikey;
 
-	contacts.forEach(function(value, key){
-		if(value.year == anio && value.city == city){
-			contacts.splice(key,1);
-			ok = true;
-		}
-	});
-	if(ok == true)
-		res.sendStatus(200);
-	else
-		res.sendStatus(405);
+	if(apikey == uuid){
+		console.log("New DELETE of resource");
+		var anio = req.params.year;
+		var city = req.params.city;
+		var ok = false;
+
+		contacts.forEach(function(value, key){
+			if(value.year == anio && value.city == city){
+				contacts.splice(key,1);
+				ok = true;
+			}
+		});
+		if(ok == true)
+			res.sendStatus(200);
+		else
+			res.sendStatus(405);
+	}else{
+		res.sendStatus(401);
+	}	
 });
 
 
