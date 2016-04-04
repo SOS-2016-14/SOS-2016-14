@@ -157,8 +157,14 @@ app.post("/api/v1/consumissions",(req,res)=>{
 
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
-	contacts = [];
-	res.sendStatus(200);
+	var apikey = req.query.apikey;
+
+	if(apikey == uuid){
+		contacts = [];
+		res.sendStatus(200);
+	}else{
+		res.sendStatus(401);
+	}
 });
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
