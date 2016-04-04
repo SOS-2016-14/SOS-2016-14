@@ -25,8 +25,13 @@ app.get("/about",(req,res) => {
 
 
 app.get("/api/v1/consumissions",(req,res)=> {
-	//console.log("new GET of resource consumissions");
-	res.send(contacts);
+	var apikey = req.query.apikey;
+	if(apikey == uuid){
+		//console.log("new GET of resource consumissions");
+		res.send(contacts);
+	}else{
+		res.sendStatus(401);
+	}	
 });
 
 /*app.get("/api/v1/consumissions/loadInitialData",(req,res)=>{
