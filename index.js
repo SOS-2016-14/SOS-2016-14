@@ -43,7 +43,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 });*/
 
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
-		var apikey = req.query.apikey;
+	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		var anio = req.params.anio;
 		var from = req.query.from;
@@ -79,21 +79,26 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	
 });
 app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
-	var city = req.params.city;
-	var anio = req.params.anio;
-	//console.log("new GET of resource "+ anio+ " - "+ mes);
-	var result = [];
+	var apikey = req.query.apikey;
+	if(apikey == uuid){
+		var city = req.params.city;
+		var anio = req.params.anio;
+		//console.log("new GET of resource "+ anio+ " - "+ mes);
+		var result = [];
 
 
-	contacts.forEach(function(value){
-		if(value.city == city && value.year == anio){
-			result.push(value);
-		}
-	});
-	if(result.length != 0)
-		res.send(result);
-	else
-		res.sendStatus(404);	
+		contacts.forEach(function(value){
+			if(value.city == city && value.year == anio){
+				result.push(value);
+			}
+		});
+		if(result.length != 0)
+			res.send(result);
+		else
+			res.sendStatus(404);	
+	}else{
+		res.sendStatus(401);
+	}
 });
 app.put("/api/v1/consumissions",(req,res)=> {
 	res.sendStatus(405);
