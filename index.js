@@ -169,36 +169,37 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
-	
-	var city = req.params.city;
-	
-	
-	var suplente = [];
+	var apikey = req.query.apikey;
 
-	contacts.forEach(function(value, key){
-		if(value.city != city){
-			suplente.push(value);			
-			
+	if(apikey == uuid){
+		var city = req.params.city;
+		
+		
+		var suplente = [];
+
+		contacts.forEach(function(value, key){
+			if(value.city != city){
+				suplente.push(value);			
+				
+			}
+
+		});
+		if(suplente.length == contacts.length){
+			res.send(404);
 		}
-
-	});
-	if(suplente.length == contacts.length){
-		res.send(404);
-	}
-	
-	else{
-	if(suplente.length==0){
-		contacts = [];
-		res.sendStatus(200);
+		
+		else{
+		if(suplente.length==0){
+			contacts = [];
+			res.sendStatus(200);
+		}else{
+			contacts = suplente;
+			res.sendStatus(200);
+		}}
 	}else{
-		contacts = suplente;
-		res.sendStatus(200);
-	}
-	
-	
-	
-	
-}});
+		res.sendStatus(401);
+	}	
+});
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	console.log("New DELETE of resource");
