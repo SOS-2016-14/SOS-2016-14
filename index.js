@@ -129,7 +129,7 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 	res.sendStatus(200);
 });
 
-/*app.delete("/api/v1/consumissions/:city",(req,res)=>{
+app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	
 	var city = req.params.city;
@@ -161,8 +161,8 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 	
 	
 }});
-*/
-app.delete("/consumissions/:city/:year",(req,res)=>{
+
+app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	console.log("New DELETE of resource");
 	var anio = req.params.year;
 	var city = req.params.city;
