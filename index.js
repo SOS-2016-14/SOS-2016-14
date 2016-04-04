@@ -132,7 +132,6 @@ app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	
 
 });
-
 app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	var apikey = req.query.apikey;
 
@@ -143,81 +142,68 @@ app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 		res.sendStatus(401);
 	}
 });
-
 app.post("/api/v1/consumissions",(req,res)=>{
-	var apikey = req.query.apikey;
 	var contact = req.body;
-
-	if(apikey == uuid){
-		contacts.push(contact);
-		res.sendStatus(201);
-	}else{
-		res.sendStatus(401);
-	}
+	contacts.push(contact);
+	//console.log("New POST of resource "+contact.name);
+	res.sendStatus(201);
 });
 
 app.delete("/api/v1/consumissions",(req,res)=>{
-	var apikey = req.query.apikey;
-
-	if(apikey == uuid){
-		contacts = [];
-		res.sendStatus(200);
-	}else{
-		res.sendStatus(401);
-	}
+	//console.log("New Delete of resources");
+	contacts = [];
+	res.sendStatus(200);
 });
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
-	var apikey = req.query.apikey;
+	//console.log("New DELETE of resource");
+	
+	var city = req.params.city;
+	
+	
+	var suplente = [];
 
-	if(apikey == uuid){
-		var city = req.params.city;
-		var suplente = [];
+	contacts.forEach(function(value, key){
+		if(value.city != city){
+			suplente.push(value);			
+			
+		}
 
-		contacts.forEach(function(value, key){
-			if(value.city != city){
-				suplente.push(value);			
-			}
-		});
-		if(suplente.length == contacts.length){
-			res.send(404);
-		}
-		
-		else{
-		if(suplente.length==0){
-			contacts = [];
-			res.sendStatus(200);
-		}else{
-			contacts = suplente;
-			res.sendStatus(200);
-		}
+	});
+	if(suplente.length == contacts.length){
+		res.send(404);
+	}
+	
+	else{
+	if(suplente.length==0){
+		contacts = [];
+		res.sendStatus(200);
 	}else{
-		res.sendStatus(401);
-	}	
+		contacts = suplente;
+		res.sendStatus(200);
+	}
+	
+	
+	
+	
 }});
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
-	var apikey = req.query.apikey;
+	console.log("New DELETE of resource");
+	var anio = req.params.year;
+	var city = req.params.city;
+	var ok = false;
 
-	if(apikey == uuid){
-		console.log("New DELETE of resource");
-		var anio = req.params.year;
-		var city = req.params.city;
-		var ok = false;
-
-		contacts.forEach(function(value, key){
-			if(value.year == anio && value.city == city){
-				contacts.splice(key,1);
-				ok = true;
-			}
-		});
-		if(ok == true)
-			res.sendStatus(200);
-		else
-			res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}	
+	contacts.forEach(function(value, key){
+		if(value.year == anio && value.city == city){
+			contacts.splice(key,1);
+			ok = true;
+		}
+	});
+	if(ok == true)
+		res.sendStatus(200);
+	else
+		res.sendStatus(405);
 });
 
 
