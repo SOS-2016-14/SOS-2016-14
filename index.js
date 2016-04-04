@@ -30,7 +30,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	//console.log("new GET of resource consumissions");
 	res.send(contacts);
 	}else{
-	res.sendStatus(401);
+	res.send("Prueba");
 
 	}
 });
