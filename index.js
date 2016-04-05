@@ -149,15 +149,15 @@ app.post("/api/v1/consumissions",(req,res)=>{
 
 	if(apikey == uuid){
 		var contact = req.body;
-		var ok = false;
+		var ok = true;
 
 		contacts.forEach(function(value, key){
 			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
-				ok = true;
+				ok =  false;
 			}
 		});
 		
-		if(ok == false){
+		if(!ok){
 			res.sendStatus(409);
 		}else{
 			contacts.push(contact);
