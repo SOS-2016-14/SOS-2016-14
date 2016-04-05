@@ -149,12 +149,13 @@ app.post("/api/v1/consumissions",(req,res)=>{
 
 	if(apikey == uuid){
 		var contact = req.body;
-		if(contacts.indexOf(contact) == -1){
+		if(contacts.indexOf(contact) >= 0){
+			res.sendStatus(409);
+		}else{
 			contacts.push(contact);
 			//console.log("New POST of resource "+contact.name);
 			res.sendStatus(201);
-		}else{
-			res.sendStatus(409);
+			
 		}	
 	}else{
 		res.sendStatus(401);
