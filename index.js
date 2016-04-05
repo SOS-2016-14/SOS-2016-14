@@ -245,7 +245,7 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 		if(ok == true)
 			res.sendStatus(200);
 		else
-			res.sendStatus(405);
+			res.sendStatus(404);
 	}else{
 		res.sendStatus(401);
 	}	
