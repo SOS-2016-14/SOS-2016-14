@@ -58,7 +58,7 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 
 		if(result.length!=0)
 			if(limit && offset){
-				res.send(result.slice(offset, limit));
+				res.send(result.slice(offset, limit+offset));
 			}else{
 				res.send(result);
 			}
