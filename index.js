@@ -157,7 +157,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 			}
 		});
 		
-		if(!ok){
+		if(ok == false){
 			res.sendStatus(409);
 		}else{
 			contacts.push(contact);
