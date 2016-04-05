@@ -111,8 +111,12 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	if(apikey == uuid){	
 		if(contact.year <2000){
 			res.sendStatus(409);
+			return;
 		}
-
+		if(contact.year != anio||contact.city != city){
+			res.sendStatus(400);
+			return;
+		}
 		contacts.forEach(function(value, key){
 			if(value.year == anio && value.city == city){
 				contacts[key] = contact;			
