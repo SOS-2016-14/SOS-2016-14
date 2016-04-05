@@ -38,6 +38,8 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	if(apikey == uuid){
 		var anio = req.params.anio;
 		var from = req.query.from;
+		var limit = req.params.limit;
+		var offset = req.query.offset;
 		var to = req.query.to;
 		var result = [];
 
@@ -55,7 +57,11 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		}	
 
 		if(result.length!=0)
-			res.send(result);
+			if(limit && offset){
+				res.send(result.slice(offset, limit));
+			}else{
+				res.send(result);
+			}
 		else
 			res.sendStatus(404);
 	}else{
