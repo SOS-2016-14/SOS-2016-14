@@ -148,8 +148,16 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	var apikey = req.query.apikey;
 
 	if(apikey == uuid){
-		var contact = JSON.parse(req.body);
-		if(contacts.indexOf(contact) >= 0){
+		var contact = req.body;
+		var ok = false;
+
+		contacts.forEach(function(value, key){
+			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
+				ok = true;
+			}
+		});
+		
+		if(!ok){
 			res.sendStatus(409);
 		}else{
 			contacts.push(contact);
