@@ -148,7 +148,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	var apikey = req.query.apikey;
 
 	if(apikey == uuid){
-		var contact = req.body;
+		var contact = JSON.parse(req.body);
 		if(contacts.indexOf(contact) >= 0){
 			res.sendStatus(409);
 		}else{
