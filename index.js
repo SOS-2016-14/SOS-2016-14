@@ -91,7 +91,7 @@ app.put("/api/v1/consumissions",(req,res)=> {
 	if(apikey == uuid){
 		res.sendStatus(405);
 	}else{
-		res.sendStatus(401);
+		res.sendStatus(400);
 	}
 });
 
@@ -119,7 +119,7 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		else
 			res.sendStatus(404);;	
 	}else{
-		res.sendStatus(401);
+		res.sendStatus(400);
 	}		
 });
 
