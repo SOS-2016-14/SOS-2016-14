@@ -15,17 +15,7 @@ app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumissions",express.static(__dirname + '/static/consumissions'));
 
-app.get("/about",(req,res) => {
-	//console.log("executing");
-	
-	
-		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
-		res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a> <br> <a href='http://sos-2016-14.herokuapp.com/data/consumissions'>Enlace a página de visualización de datos</a></li>");
-		res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
-		res.end();
-	
-	
-});
+/////////////////////////////////GET
 
 app.get("/api/v1/consumissions",(req,res)=> {
 	var apikey = req.query.apikey;
@@ -97,6 +87,8 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	}
 });
 
+/////////////////////////////////PUT
+
 app.put("/api/v1/consumissions",(req,res)=> {
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
@@ -137,6 +129,8 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		res.sendStatus(400);
 	}		
 });
+
+/////////////////////////////////POST
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
 	var apikey = req.query.apikey;
@@ -184,6 +178,8 @@ app.post("/api/v1/consumissions",(req,res)=>{
 		res.sendStatus(401);
 	}
 });
+
+/////////////////////////////////DELETE
 
 app.delete("/api/v1/consumissions",(req,res)=>{
 	//console.log("New Delete of resources");
@@ -256,9 +252,6 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	}	
 });
 
-/*app.get("/data/consumissions",(req,res)=> {
-		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
-});*/
 
 
 
