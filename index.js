@@ -159,7 +159,8 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	if(apikey == uuid){
 		var contact = req.body;
 		var ok = true;
-		if(value.year == ""){
+
+		if(req.year == ""){
 			res.send("hola");
 		}
 
