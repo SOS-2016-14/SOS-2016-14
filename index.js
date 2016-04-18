@@ -159,6 +159,9 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	if(apikey == uuid){
 		var contact = req.body;
 		var ok = true;
+		if(value.year == ""){
+			res.send("hola");
+		}
 
 		contacts.forEach(function(value, key){
 			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
