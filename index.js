@@ -254,9 +254,9 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 	}	
 });
 
-app.get("/data/consumissions",(req,res)=> {
+/*app.get("/data/consumissions",(req,res)=> {
 		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
-});
+});*/
 
 
 
