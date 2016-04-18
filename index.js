@@ -9,6 +9,7 @@ var contacts1 = [{year: 2015, month: "January",city: "Sevilla", category : 1, th
 var uuid = "b3b1f308-20e2-65b2-7fa7-4ef28fe78030";
 
 app.use(bodyParser.json());
+app.use("/",express.static(__dirname + '/static'));
 app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumissions",express.static(__dirname + '/static/consumissions'));
