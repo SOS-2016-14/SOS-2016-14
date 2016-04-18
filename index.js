@@ -165,7 +165,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 				ok =  false;
 			}
 		});
-		if(value.year == null ){
+		if(value.year == ""||value.city == "" ){
 			res.sendStatus(400);
 		}
 		
