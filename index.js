@@ -252,53 +252,7 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 });
 
 app.get("/data/consumissions",(req,res)=> {
-		res.write ("<html>
-<body>
-<h1>Jaime Herrera Varo (Consumissions)</h1>
-<table id="location" border='1'>
-    <tr>
-        <th>City</th>
-         <th>year</th>
-		 <th>Month</th>
-		 <th>Cathegory</th>
-		 <th>Theme</th>
-    </tr>
-</table>
-
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-	<script>
-		$("body").ready(function(){
-		
-		
-				
-		$.ajax(
-		{
-			type: "GET",
-			url: 'https://sos-2016-14.herokuapp.com/api/v1/consumissions?apikey=b3b1f308-20e2-65b2-7fa7-4ef28fe78030',
-			data: "{}",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			cache: false,
-			success: function (data) {
-				var trHTML = '';
-			$.each(data, function (i, item) {
-				trHTML += '<tr><td>' + item.city + '</td><td>' + item.year + '</td><td>' + item.month + '</td><td>' + item.cathegory + '</td><td>' + item.theme + '</td></tr>';
-			});
-			$('#location').append(trHTML);
-			},
-			error: function (msg) {
-				alert(msg.responseText);
-			}
-    });
-				
-	
-		
-		});
-	</script>
-
-
-</body>
-</html>");
+		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
 });
 
 
