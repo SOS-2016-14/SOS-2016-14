@@ -15,7 +15,7 @@ app.get("/about",(req,res) => {
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		res.write ("<html><body><center>Presentation page of Jaime Herrera and Jose Llopis <ul> ");
-		res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a></li>");
+		res.write ("<li>Jaime Herrera Varo <br> <a href='https://github.com/jaimeweed'>GitHub</a><br> <a href='http://sos-2016-14.herokuapp.com/api/v1/consumissions'>API</a> <br> <a href='http://sos-2016-14.herokuapp.com/data/consumissions'>Enlace a página de visualización de datos</a></li>");
 		res.write ("<li>Jose Llopis <br> <a href='https://github.com/siryopas'>GitHub</a></li></ul></center></body></html>");
 		res.end();
 	}else{
