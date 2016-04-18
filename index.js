@@ -94,7 +94,7 @@ app.put("/api/v1/consumissions",(req,res)=> {
 	if(apikey == uuid){
 		res.sendStatus(405);
 	}else{
-		res.sendStatus(400);
+		res.sendStatus(401);
 	}
 });
 
@@ -126,7 +126,7 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		else
 			res.sendStatus(404);;	
 	}else{
-		res.sendStatus(400);
+		res.sendStatus(401);
 	}		
 });
 
@@ -165,6 +165,9 @@ app.post("/api/v1/consumissions",(req,res)=>{
 				ok =  false;
 			}
 		});
+		if(value.year == null ){
+			res.sendStatus(400);
+		}
 		
 		if(!ok){
 			res.sendStatus(409);
