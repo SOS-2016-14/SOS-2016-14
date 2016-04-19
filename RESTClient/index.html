@@ -59,13 +59,7 @@ $(document).ready(() => {
 
 
 
-			for (var i=0 ; i<data.length ; i++)
-			{
-				elementoLista = "<li>"+"(country="+data[i].country+")(year="+data[i].year+")(population_0_14="+data[i].population_0_14+")(population_15_64="+data[i].population_15_64+")"+"</li>";
-				cadenaLista = cadenaLista + elementoLista;
-				console.log(data[i]);
-
-			}
+			
 
  
 
@@ -94,13 +88,13 @@ $(document).ready(() => {
 <body>
 
 <h1>JQuery REST Client</h1>
-URL: <input id="url" size="30" value="/api/v1/population-percentage-by-age?apikey=secret"/>
+URL: <input id="url" size="30" />
       GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
       POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
       PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
       DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
       <br/>
-      Payload: <input id="payload" size="60" value='{"country":"sevilla","year":99000,"population_0_14":6,"population_15_64":80}'/>
+      Payload: <input id="payload" size="60" />
       <br/><br/>
       <span id="button">Send</span>
       <br/><hr/>
