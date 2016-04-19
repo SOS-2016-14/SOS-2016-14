@@ -22,7 +22,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	if(apikey == uuid){
 		//console.log("new GET of resource consumissions");
 		res.send(contacts);
-		res.sendStatus(200);
+		
 	}else{
 		res.sendStatus(401);
 	}	
@@ -156,12 +156,16 @@ app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 });
 app.post("/api/v1/consumissions",(req,res)=>{
 	var apikey = req.query.apikey;
+	var cantidad_atributos=JSON.stringify(req.body).split(",").length;
+	var cantidad = cantidad_atributos.toString();
 
 	if(apikey == uuid){
 		var contact = req.body;
 		var ok = true;
 
-		
+		if(res.body.city === undefined || res.body.year === undefined || res.body.month === undefined || res.body.cathegory === undefined || res.body.theme === undefined || cantidad !== "5"){
+			res.sendStatus(400);
+		}
 
 		contacts.forEach(function(value, key){
 			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
