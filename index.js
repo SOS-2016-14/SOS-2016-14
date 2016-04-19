@@ -163,7 +163,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 		var contact = req.body;
 		var ok = true;
 
-		if(req.body.city === undefined || req.body.year === undefined || req.body.month === undefined || req.body.cathegory === undefined || req.body.theme === undefined || cantidad !== "5"){
+		if(req.body.city === undefined || req.body.year === undefined || req.body.month === undefined || req.body.category === undefined || req.body.theme === undefined || cantidad !== "5"){
 			res.sendStatus(400);
 		}
 
