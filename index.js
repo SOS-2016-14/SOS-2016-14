@@ -22,6 +22,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	if(apikey == uuid){
 		//console.log("new GET of resource consumissions");
 		res.send(contacts);
+		res.sendStatus(200);
 	}else{
 		res.sendStatus(401);
 	}	
@@ -160,8 +161,8 @@ app.post("/api/v1/consumissions",(req,res)=>{
 		var contact = req.body;
 		var ok = true;
 
-		if(req.year == ""){
-			res.send("hola");
+		if(req.year == null){
+			res.sendStatus(400);
 		}
 
 		contacts.forEach(function(value, key){
