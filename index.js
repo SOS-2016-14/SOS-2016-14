@@ -161,9 +161,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 		var contact = req.body;
 		var ok = true;
 
-		if(req.year == null){
-			res.sendStatus(400);
-		}
+		
 
 		contacts.forEach(function(value, key){
 			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
