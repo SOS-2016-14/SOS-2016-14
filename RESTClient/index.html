@@ -1,65 +1,116 @@
-<html >
-	<head>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-	<script>
-		$("body").ready(function(){
-		
-			$("#button").click(function (){
-				
-				var method = $("input[type=radio]:checked").attr("id");
-				
-				var request = $.ajax({
-					url: $("#url").val(),
-					type: method,
-					data: $("#payload").val(),
-					contentType : "application/json"
-				});
-				
-				request.done(function (data){
-					$("#data").text(JSON.stringify(data));
-				});
-				
-				request.always(function(jqXHR,status){
-				if(status=="error"){
-					$("#data").text("")
-					$("#list").text("")
-					$("#status").text(jqXHR.status)
-				}else{
-					$("#status").text("")
-				}
-				});
-				
-			});
-		
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+
+<script>
+$(document).ready(() => {
+
+	$("#button").click(function () {
+
+		var var_url = $("#url").val();
+		var var_datos_entrada = $("#payload").val();
+		var var_metodo = $('input:radio[name=method]:checked').attr("id");
+		var parsedData;
+		var statusCode;
+		var mensajeLog;
+		var cadenaLista = "";
+
+		var objeto_javascript = JSON.stringify(var_datos_entrada);
+
+		var request = $.ajax({
+            url: var_url,
+            type: var_metodo,
+            data: var_datos_entrada,
+            dataType: "JSON",
+            contentType: "application/json"
+            });
+
+
+		    $("#data").text(" ");
+
+			$("#List").text(" ");
+
+
+
+			request.always(function(jqXHR, status) {
+
+			statusCode = jqXHR.status;
+
+			$("#status").text(statusCode);
+
+			mensajeLog = "Done";
+
+			$("#Log").text(mensajeLog);
+
 		});
-	</script>
-	</head>
 
+
+
+
+		request.done(function(data,status,jqXHR){
+			
+			statusCode = jqXHR.status;
+
+			$("#status").text(statusCode);
+
+			dataJS = JSON.stringify(data);
+
+			$("#data").text(dataJS);
+
+
+
+			for (var i=0 ; i<data.length ; i++)
+			{
+				elementoLista = "<li>"+"(country="+data[i].country+")(year="+data[i].year+")(population_0_14="+data[i].population_0_14+")(population_15_64="+data[i].population_15_64+")"+"</li>";
+				cadenaLista = cadenaLista + elementoLista;
+				console.log(data[i]);
+
+			}
+
+ 
+
+			$("#List").html(cadenaLista);
+
+
+
+
+
+			mensajeLog = "Done";
+
+			$("#Log").text(mensajeLog);
+			
+		});
+
+
+
+
+	});
+
+	});
+
+
+</script>
+</head>
 <body>
-	<h1> JQuery RESTClient</h1>
-	URL: <input id="url" size="30" />
-		GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
-		POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
-		PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
-		DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
-		<br/>
-		Payload: <input id="payload" size="60"/>
-		
-		<br/><br/>
-		
-		<span id="button">Send</span>
-		
-		<br/><hr/>
-		
-		HTTP Status: <span id="status"></span>
-		
-		<br/><hr/>
-		<span id ="data"></span>
-		<br/><hr/>
-		<span id ="list"></span>
-		<hr/>
-		Log: <span id ="log"></span>
-</body>
 
+<h1>JQuery REST Client</h1>
+URL: <input id="url" size="30" value="/api/v1/population-percentage-by-age?apikey=secret"/>
+      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
+      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
+      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
+      DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+      <br/>
+      Payload: <input id="payload" size="60" value='{"country":"sevilla","year":99000,"population_0_14":6,"population_15_64":80}'/>
+      <br/><br/>
+      <span id="button">Send</span>
+      <br/><hr/>
+      HTTP Status: <span id="status"></span>
+      <br/><hr/>
+      <span id="data"></span>
+      <br/><hr/>
+      <ul id="List"></ul>
+      <hr/>
+      Log: <span id="Log"></span>
+
+</body>
 </html>
