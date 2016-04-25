@@ -99,10 +99,7 @@ $(document).ready(() => {
 			<label for="url"> URL:</label>
 			<input class "form-control" id="url" placeholder="url" />
 		</div>	
-		<div class ="form-group">
-			<label for="get"> GET</label>
-			<input class "form-control" type="radio"checked="checked" id="get" placeholder="get" />
-		</div>
+		
 		      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
 		      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
 		      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
@@ -110,7 +107,9 @@ $(document).ready(() => {
 		      <br/>
 		      Payload: <input id="payload" size="60" />
 		      <br/><br/>
-		      <span id="button">Send</span>
+		     <button type="button" class="btn btn-success">
+				<span id="button">Send</span>
+		 	 </button>
 		      <br/><hr/>
 		      HTTP Status: <span id="status"></span>
 		      <br/><hr/>
