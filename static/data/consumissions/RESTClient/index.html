@@ -1,0 +1,111 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+
+<script>
+$(document).ready(() => {
+
+	$("#button").click(function () {
+
+		var var_url = $("#url").val();
+		var var_datos_entrada = $("#payload").val();
+		var var_metodo = $('input:radio[name=method]:checked').attr("id");
+		var parsedData;
+		var statusCode;
+		var mensajeLog;
+		var cadenaLista = "";
+
+		var objeto_javascript = JSON.stringify(var_datos_entrada);
+
+		var request = $.ajax({
+            url: var_url,
+            type: var_metodo,
+            data: var_datos_entrada,
+            dataType: "JSON",
+            contentType: "application/json"
+            });
+
+
+		    $("#data").text(" ");
+
+			$("#List").text(" ");
+
+
+
+			request.always(function(jqXHR, status) {
+
+			statusCode = jqXHR.status;
+
+			$("#status").text(statusCode);
+
+			mensajeLog = "Done";
+
+			$("#Log").text(mensajeLog);
+
+		});
+
+
+
+
+		request.done(function(data,status,jqXHR){
+			
+			statusCode = jqXHR.status;
+
+			$("#status").text(statusCode);
+
+			dataJS = JSON.stringify(data);
+
+			$("#data").text(dataJS);
+
+
+
+			
+
+ 
+
+			$("#List").html(cadenaLista);
+
+
+
+
+
+			mensajeLog = "Done";
+
+			$("#Log").text(mensajeLog);
+			
+		});
+
+
+
+
+	});
+
+	});
+
+
+</script>
+</head>
+<body>
+
+<h1>JQuery REST Client</h1>
+URL: <input id="url" size="30" />
+      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
+      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
+      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
+      DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+      <br/>
+      Payload: <input id="payload" size="60" />
+      <br/><br/>
+      <span id="button">Send</span>
+      <br/><hr/>
+      HTTP Status: <span id="status"></span>
+      <br/><hr/>
+      <span id="data"></span>
+      <br/><hr/>
+      <ul id="List"></ul>
+      <hr/>
+      Log: <span id="Log"></span>
+
+</body>
+</html>
