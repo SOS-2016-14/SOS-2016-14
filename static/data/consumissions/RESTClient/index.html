@@ -1,7 +1,11 @@
 <html>
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="style.css"/>
 <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<script href="bootstrap/css/bootstrap.min.js"></script>
 <script>
 
 
@@ -88,25 +92,30 @@ $(document).ready(() => {
 </script>
 </head>
 <body>
-
-<h1>JQuery REST Client</h1>
-URL: <input id="url" size="30" />
-      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
-      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
-      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
-      DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
-      <br/>
-      Payload: <input id="payload" size="60" />
-      <br/><br/>
-      <span id="button">Send</span>
-      <br/><hr/>
-      HTTP Status: <span id="status"></span>
-      <br/><hr/>
-      <span id="data"></span>
-      <br/><hr/>
-      <ul id="List"></ul>
-      <hr/>
-      Log: <span id="Log"></span>
-
+<div class="container">
+	<h1>JQuery RESTClient</h1>
+	<form class="form-horizontal" role="form">
+		<div class ="form-group">
+			<label for="url"> URL:</label>
+			<input class "form-control" id="url" placeholder="url" />
+		</div>	
+		      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
+		      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
+		      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
+		      DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+		      <br/>
+		      Payload: <input id="payload" size="60" />
+		      <br/><br/>
+		      <span id="button">Send</span>
+		      <br/><hr/>
+		      HTTP Status: <span id="status"></span>
+		      <br/><hr/>
+		      <span id="data"></span>
+		      <br/><hr/>
+		      <ul id="List"></ul>
+		      <hr/>
+		      Log: <span id="Log"></span>
+</form>	      
+</div>
 </body>
 </html>
