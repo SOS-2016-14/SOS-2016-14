@@ -100,11 +100,18 @@ $(document).ready(() => {
 			<label for="url"> URL:</label>
 			<input class "form-control" id="url" placeholder="url" />
 		</div>	
+	<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+                <label><input name="method" type="radio" id="GET" checked="checked"/>GET</label> &nbsp;&nbsp;
+                <label><input name="method" type="radio" id="POST" checked="checked"/>POST</label> &nbsp;&nbsp;
+                <label><input name="method" type="radio" id="PUT" checked="checked"/>PUT</label>&nbsp;&nbsp;
+                <label><input name="method" type="radio" id="DELETE" checked="checked"/>DELETE</label>&nbsp;&nbsp;
+        </div>
+      </div>
+    </div>
 		
-		      GET <input name="method" type="radio" id="GET" checked="checked" /> &nbsp;&nbsp;
-		      POST <input name="method" type="radio" id="POST" /> &nbsp;&nbsp;
-		      PUT <input name="method" type="radio" id="PUT" /> &nbsp;&nbsp;
-		      DELETE <input name="method" type="radio" id="DELETE" /> &nbsp;&nbsp;
+		      
 		      <br/>
 		      Payload: <input id="payload" size="60" />
 		      <br/><br/>
@@ -117,7 +124,7 @@ $(document).ready(() => {
 		      <ul id="List"></ul>
 		      <hr/>
 		      Log: <span id="Log"></span>
-</form>	      
+	</form>	      
 </div>
 </body>
 </html>
