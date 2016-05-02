@@ -3,13 +3,13 @@ var bodyParser = require("body-parser");
 var fs = require ("fs");
 var app = express();
 
-var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
-var contacts1 = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2015, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2016, month: "January",city: "Madrid", category : 3, theme: "resort" }];
+var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2022, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "January",city: "Cadiz", category : 3, theme: "resort" }];
+const contacts1 = JSON.parse(JSON.stringify(contacts));
 
 var uuid = "b3b1f308-20e2-65b2-7fa7-4ef28fe78030";
 
 app.use(bodyParser.json());
-
+app.use("/",express.static(__dirname));
 app.use("/",express.static(__dirname + '/static'));
 app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
@@ -18,17 +18,47 @@ app.use("/consumissions",express.static(__dirname + '/static/consumissions'));
 /////////////////////////////////GET
 
 app.get("/api/v1/consumissions",(req,res)=> {
+	console.log("---------    Mostrar todo");
+	console.log(contacts1);
+	
+	var from = req.query.from;
+	var to = req.query.to;
+	var search = req.query.search;
+	
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		//console.log("new GET of resource consumissions");
-		res.send(contacts);
-		
+		var result = [];
+		var i = [];
+		contacts.forEach(function(value,key){
+			if(search == ""){
+				i.push(value);
+			}else{
+				if(search == value.year){
+					i.push(value);	
+				}
+			}
+		});
+
+		i.forEach(function(value,key){
+			if(key+1 >= from && key+1 <= to){
+				result.push(value);	
+			}
+		});
+
+		var final = { 
+			result: result, 
+			total: i.length
+		}
+		res.send(final)
 	}else{
 		res.sendStatus(401);
 	}	
 });
 
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
+	console.log("---------    Mostrar por año");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		var anio = req.params.anio;
@@ -45,27 +75,33 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 					result.push(value);
 				}
 			});
+		
+			if(result.length!=0){
+				if(limit && offset){
+					res.send(result.slice(offset, limit));
+				}else{
+					res.send(result);
+				}
+			}else{
+				res.sendStatus(404);
+			}
+
 		}else{
-			contacts = contacts1;
+			contacts = JSON.parse(JSON.stringify(contacts1));
 			//contacts.concat();
 			console.log("New load initial data");
 			res.sendStatus(200);
 		}	
 
-		if(result.length!=0)
-			if(limit && offset){
-				res.send(result.slice(offset, limit));
-			}else{
-				res.send(result);
-			}
-		else
-			res.sendStatus(404);
+		
 	}else{
 		res.sendStatus(401);
 	}	
 });
 
 app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
+	console.log("---------    Mostrar 1");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		var city = req.params.city;
@@ -91,6 +127,8 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 /////////////////////////////////PUT
 
 app.put("/api/v1/consumissions",(req,res)=> {
+	console.log("---------    Actualizar error");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 	if(apikey == uuid){
 		res.sendStatus(405);
@@ -100,6 +138,8 @@ app.put("/api/v1/consumissions",(req,res)=> {
 });
 
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
+	console.log("---------    Actualizar uno");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 	var city = req.params.city;
 	var anio = req.params.anio;
@@ -109,18 +149,17 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 		if(contact.year <2000){
 			res.sendStatus(409);
 			return;
-		}
-		if(contact.year != anio||contact.city != city){
+		}else if(contact.year != anio||contact.city != city){
 			res.sendStatus(400);
 			return;
+		}else{
+			contacts.forEach(function(value, key){
+				if(value.year == anio && value.city == city){
+					contacts[key] = contact;			
+					ok = true
+				}
+			});
 		}
-		contacts.forEach(function(value, key){
-			if(value.year == anio && value.city == city){
-				contacts[key] = contact;			
-				ok = true
-			}
-
-		});
 
 		if(ok == true)
 			res.sendStatus(200);
@@ -134,17 +173,22 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 /////////////////////////////////POST
 
 app.post("/api/v1/consumissions/:anio",(req,res)=>{
-	var apikey = req.query.apikey;
+	console.log("---------    Grabar error 2");
+	console.log(contacts1);
 
+	var apikey = req.query.apikey;
+	
 	if(apikey == uuid){
 		res.sendStatus(405);
 	}else{
 		res.sendStatus(401);
 	}	
 	
-
 });
+
 app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
+	console.log("---------   Grabar error");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 
 	if(apikey == uuid){
@@ -154,10 +198,14 @@ app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 		res.sendStatus(401);
 	}
 });
+
 app.post("/api/v1/consumissions",(req,res)=>{
+	console.log("---------    Grabar uno");
+	console.log(contacts1);
 	var apikey = req.query.apikey;
 	var cantidad_atributos=JSON.stringify(req.body).split(",").length;
 	var cantidad = cantidad_atributos.toString();
+
 
 	if(apikey == uuid){
 		var contact = req.body;
@@ -168,7 +216,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 		}
 
 		contacts.forEach(function(value, key){
-			if(value.year == contact.year && value.city == contact.city && value.month == contact.month){
+			if(value.year == contact.year && value.city == contact.city){
 				ok =  false;
 			}
 		});
@@ -189,6 +237,8 @@ app.post("/api/v1/consumissions",(req,res)=>{
 /////////////////////////////////DELETE
 
 app.delete("/api/v1/consumissions",(req,res)=>{
+	console.log("---------    Borrar todo");
+	console.log(contacts1);
 	//console.log("New Delete of resources");
 	var apikey = req.query.apikey;
 
@@ -201,6 +251,8 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 });
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
+	console.log("---------    Borrar una ciudad");
+	console.log(contacts1);
 	//console.log("New DELETE of resource");
 	var apikey = req.query.apikey;
 
@@ -235,6 +287,9 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 });
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
+	console.log("---------    Borrar un recurso");
+	console.log(contacts1);
+
 	var apikey = req.query.apikey;
 
 	if(apikey == uuid){
@@ -258,9 +313,6 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 		res.sendStatus(401);
 	}	
 });
-
-
-
 
 
 app.listen(process.env.PORT|| 10000);
