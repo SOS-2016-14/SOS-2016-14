@@ -1,0 +1,19 @@
+body {
+ font-family: 'Fjalla One', sans-serif;
+}
+hr {
+ border : 1px solid grey;
+}
+
+#button {
+ cursor :pointer;
+ padding : 5px;
+
+}
+
+
+.active {
+ color:blue ;
+ front-weight: bolder;
+ broder : 1px solid black
+}
