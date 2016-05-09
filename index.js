@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var fs = require ("fs");
 var app = express();
 
-var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 2, theme: "spa" },{year: 2017, month: "January",city: "Sevilla", category : 1, theme: "resort" },{year: 2022, month: "April", city: "Sevilla", category : 1, theme: "resort" },{year: 2017, month: "January",city: "Cadiz", category : 3, theme: "resort" }];
+var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 5, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 1, theme: "spa" },{year: 2017, month: "January",city: "Toledo", category : 4, theme: "resort" },{year: 2022, month: "April", city: "Granada", category : 3, theme: "resort" },{year: 2017, month: "January",city: "Huelva", category : 2, theme: "resort" }];
 const contacts1 = JSON.parse(JSON.stringify(contacts));
 
 var uuid = "b3b1f308-20e2-65b2-7fa7-4ef28fe78030";
@@ -18,39 +18,45 @@ app.use("/consumissions",express.static(__dirname + '/static/consumissions'));
 /////////////////////////////////GET
 
 app.get("/api/v1/consumissions",(req,res)=> {
-	console.log("---------    Mostrar todo");
-	console.log(contacts1);
+	
 	
 	var from = req.query.from;
 	var to = req.query.to;
+	var all = req.query.all;
 	var search = req.query.search;
-	
 	var apikey = req.query.apikey;
+	
 	if(apikey == uuid){
 		//console.log("new GET of resource consumissions");
 		var result = [];
 		var i = [];
 		contacts.forEach(function(value,key){
-			if(search == ""){
+			if(search == ""|| all == 1){
 				i.push(value);
 			}else{
-				if(search == value.year){
+				if(search == value.year|| search == value.city){
 					i.push(value);	
 				}
 			}
 		});
 
-		i.forEach(function(value,key){
-			if(key+1 >= from && key+1 <= to){
-				result.push(value);	
-			}
-		});
-
+		
+		if(all != 1){
+			i.forEach(function(value,key){
+				if(key+1 >= from && key+1 <= to){
+					result.push(value);	
+				}
+			});
+		}else{
+			result = i;
+		}
+		
 		var final = { 
 			result: result, 
 			total: i.length
 		}
-		res.send(final)
+		res.send(final);
+		
 	}else{
 		res.sendStatus(401);
 	}	

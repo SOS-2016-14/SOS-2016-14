@@ -1,5 +1,10 @@
 [
-	{"name": "Pablo", "phone": "12345"},
-	{"name": "Jaime", "phone": "12345"},
-	{"name": "Pablo", "phone": "12345"}
+
+{"year": 2015, "month": "January","city": "Sevilla", "category" : 1, "theme": "resort" },
+ {"year": 2017, "month": "March","city": "Madrid", "category" : 2, "theme": "spa" },
+ {"year": 2017, "month": "January","city": "Toledo", "category" : 1, "theme": "resort" },
+ {"year": 2022, "month": "April", "city": "Granada", "category" : 1, "theme": "resort" },
+ {"year": 2017, "month": "January","city": "Huelva", "category" : 3, "theme": "resort" }
+ 
 ]
+
