@@ -2,18 +2,146 @@ var express = require ("express");
 var bodyParser = require("body-parser");
 var fs = require ("fs");
 var app = express();
+var request =require("request");
+var cors = require("cors");
+var governify = require("governify");
+
+
 
 var contacts = [{year: 2015, month: "January",city: "Sevilla", category : 5, theme: "resort" },{year: 2017, month: "March",city: "Madrid", category : 1, theme: "spa" },{year: 2017, month: "January",city: "Toledo", category : 4, theme: "resort" },{year: 2022, month: "April", city: "Granada", category : 3, theme: "resort" },{year: 2017, month: "January",city: "Huelva", category : 2, theme: "resort" }];
 const contacts1 = JSON.parse(JSON.stringify(contacts));
 
 var uuid = "b3b1f308-20e2-65b2-7fa7-4ef28fe78030";
 
-app.use(bodyParser.json());
+
 app.use("/",express.static(__dirname));
 app.use("/",express.static(__dirname + '/static'));
 app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumissions",express.static(__dirname + '/static/consumissions'));
+app.use("/api1",express.static(__dirname + '/static/api1'));
+app.use("/api2",express.static(__dirname + '/static/api2'));
+app.use("/api3",express.static(__dirname + '/static/api3'));
+app.use("/api4",express.static(__dirname + '/static/api4'));
+app.use("/api4",express.static(__dirname + '/static/api4'));
+app.use("/api5",express.static(__dirname + '/static/api5'));
+
+//////////////////////////////////////////////////////////// PROXYS
+
+
+app.use(cors());
+
+var pathsJaime='/contacts';
+var apiServerHost = 'http://sos-contacts.herokuapp.com';
+app.use(pathsJaime, function(req,res){
+	var url = apiServerHost + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
+
+
+
+
+
+app.use("/tiempo", function(req, res) {
+	var q = req.query.q;
+	var paths1='/data/2.5/weather?q='+q+'&APPID=537fae442cf69dd0a1e985b9aa6119c0'; 
+	var apiServerHost1 = 'http://api.openweathermap.org';
+  	
+  	var url = apiServerHost1 + paths1;
+  	console.log('piped: '+url);
+
+	req.pipe( request(url,function(error, response, body){
+
+	    if (error) {
+	         console.log(error);
+	        res.sendStatus(503); 
+	       console.log("OK");
+	     }
+	 })
+	 ).pipe(res);
+
+  });
+
+var paths2='/3/movie/550?api_key=02fe27f8f0aa317dc4be826a2639a623'; 
+var apiServerHost2 = 'https://api.themoviedb.org';
+
+
+app.use("/films", function(req, res) {
+  var url = apiServerHost2 + paths2;
+  console.log('piped: '+url);
+
+
+  req.pipe( request(url,function(error, response, body){
+
+    if (error) {
+         console.log(error);
+        res.sendStatus(503); 
+       console.log("OK");
+     }
+ })
+ ).pipe(res);
+
+  });
+
+	var path3 = '/api/v1/locations';
+    var apiServerHost3 = 'http://sos-2016-05.herokuapp.com';
+
+    app.use(path3,function(req,res){
+      var url = apiServerHost3 + path3 + req.url;
+      console.log("Piped: "+ req.baseUrl + req.url);
+      console.log("URL Accesed: "+ url);
+
+      req.pipe(request(url,(error,response,body)=>{
+        if(error){
+          console.error(error);
+          res.sendStatus(503);
+        }
+      })).pipe(res);
+    });
+
+var path4 = '/api/v1/gold-medals';
+    var apiServerHost4 = 'http://sos-2016-05.herokuapp.com';
+
+    app.use(path4,function(req,res){
+      var url = apiServerHost4 + path4 + req.url;
+      console.log("Piped: "+ req.baseUrl + req.url);
+      console.log("URL Accesed: "+ url);
+
+      req.pipe(request(url,(error,response,body)=>{
+        if(error){
+          console.error(error);
+          res.sendStatus(503);
+        }
+      })).pipe(res);
+    });
+
+
+app.use(bodyParser.json());
+/////////////////////////////////GOVERNIFY JAIME
+
+//multiPlan_C1_sos-2016-14-jhv_ag
+//multiPlan_C4_sos-2016-14-jhv_ag
+governify.control(app,{
+	datastore : "http://datastore.governify.io/api/v6.1/",
+	namespace : "sos-2016-14-jhv",
+	defaultPath : "/api"
+})
+
+
+/////////////////////////////////TIME
+app.get("/time",function (req,res){
+  var time=Date();
+    res.send("What time is it?   ->   "+time);
+  });
+
+
+
+
 
 /////////////////////////////////GET
 
@@ -26,7 +154,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 	var search = req.query.search;
 	var apikey = req.query.apikey;
 	
-	if(apikey == uuid){
+	
 		//console.log("new GET of resource consumissions");
 		var result = [];
 		var i = [];
@@ -34,7 +162,7 @@ app.get("/api/v1/consumissions",(req,res)=> {
 			if(search == ""|| all == 1){
 				i.push(value);
 			}else{
-				if(search == value.year|| search == value.city){
+				if(search == value.year || search == value.city){
 					i.push(value);	
 				}
 			}
@@ -55,18 +183,17 @@ app.get("/api/v1/consumissions",(req,res)=> {
 			result: result, 
 			total: i.length
 		}
+
 		res.send(final);
 		
-	}else{
-		res.sendStatus(401);
-	}	
+		
 });
 
 app.get("/api/v1/consumissions/:anio",(req,res)=>{
 	console.log("---------    Mostrar por año");
 	console.log(contacts1);
 	var apikey = req.query.apikey;
-	if(apikey == uuid){
+	
 		var anio = req.params.anio;
 		var from = req.query.from;
 		var limit = req.query.limit;
@@ -100,16 +227,14 @@ app.get("/api/v1/consumissions/:anio",(req,res)=>{
 		}	
 
 		
-	}else{
-		res.sendStatus(401);
-	}	
+		
 });
 
 app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	console.log("---------    Mostrar 1");
 	console.log(contacts1);
 	var apikey = req.query.apikey;
-	if(apikey == uuid){
+	
 		var city = req.params.city;
 		var anio = req.params.anio;
 		//console.log("new GET of resource "+ anio+ " - "+ mes);
@@ -125,9 +250,7 @@ app.get("/api/v1/consumissions/:city/:anio",(req,res)=>{
 			res.send(result);
 		else
 			res.sendStatus(404);	
-	}else{
-		res.sendStatus(401);
-	}
+	
 });
 
 /////////////////////////////////PUT
@@ -136,11 +259,9 @@ app.put("/api/v1/consumissions",(req,res)=> {
 	console.log("---------    Actualizar error");
 	console.log(contacts1);
 	var apikey = req.query.apikey;
-	if(apikey == uuid){
-		res.sendStatus(405);
-	}else{
+	
 		res.sendStatus(401);
-	}
+	
 });
 
 app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
@@ -151,7 +272,7 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 	var anio = req.params.anio;
 	var contact = req.body;
 	var ok = false;
-	if(apikey == uuid){	
+		
 		if(contact.year <2000){
 			res.sendStatus(409);
 			return;
@@ -171,9 +292,7 @@ app.put("/api/v1/consumissions/:city/:anio",(req,res)=>{
 			res.sendStatus(200);
 		else
 			res.sendStatus(404);;	
-	}else{
-		res.sendStatus(401);
-	}		
+			
 });
 
 /////////////////////////////////POST
@@ -184,11 +303,9 @@ app.post("/api/v1/consumissions/:anio",(req,res)=>{
 
 	var apikey = req.query.apikey;
 	
-	if(apikey == uuid){
+	
 		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}	
+	
 	
 });
 
@@ -197,12 +314,10 @@ app.post("/api/v1/consumissions/:anio/:city",(req,res)=>{
 	console.log(contacts1);
 	var apikey = req.query.apikey;
 
-	if(apikey == uuid){
+	
 	//console.log("New intent of POST of resource");
 		res.sendStatus(405);
-	}else{
-		res.sendStatus(401);
-	}
+	
 });
 
 app.post("/api/v1/consumissions",(req,res)=>{
@@ -213,7 +328,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 	var cantidad = cantidad_atributos.toString();
 
 
-	if(apikey == uuid){
+	
 		var contact = req.body;
 		var ok = true;
 
@@ -235,9 +350,7 @@ app.post("/api/v1/consumissions",(req,res)=>{
 			res.sendStatus(201);
 			
 		}	
-	}else{
-		res.sendStatus(401);
-	}
+	
 });
 
 /////////////////////////////////DELETE
@@ -246,14 +359,12 @@ app.delete("/api/v1/consumissions",(req,res)=>{
 	console.log("---------    Borrar todo");
 	console.log(contacts1);
 	//console.log("New Delete of resources");
-	var apikey = req.query.apikey;
+	
 
-	if(apikey == uuid){
+	
 		contacts = [];
 		res.sendStatus(200);
-	}else{
-		res.sendStatus(401);
-	}
+	
 });
 
 app.delete("/api/v1/consumissions/:city",(req,res)=>{
@@ -262,7 +373,7 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 	//console.log("New DELETE of resource");
 	var apikey = req.query.apikey;
 
-	if(apikey == uuid){
+	
 		var city = req.params.city;
 		
 		
@@ -287,9 +398,7 @@ app.delete("/api/v1/consumissions/:city",(req,res)=>{
 			contacts = suplente;
 			res.sendStatus(200);
 		}}
-	}else{
-		res.sendStatus(401);
-	}	
+		
 });
 
 app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
@@ -298,7 +407,7 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 
 	var apikey = req.query.apikey;
 
-	if(apikey == uuid){
+	
 		console.log("New DELETE of resource");
 		var anio = req.params.year;
 		var city = req.params.city;
@@ -315,9 +424,7 @@ app.delete("/api/v1/consumissions/:city/:year",(req,res)=>{
 		else
 			res.sendStatus(404);
 		
-	}else{
-		res.sendStatus(401);
-	}	
+		
 });
 
 

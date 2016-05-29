@@ -31,9 +31,9 @@
 					 if(status == "error") {
 						$("#status").html(jqXHR.status);
 					 	console.log(jqXHR.status);
-					 	if (jqXHR.status == 401) {
-					 		$("#log").html("The apikey you entered is not valid");
-					 		alert('Apikey not valid');
+					 	if (jqXHR.status == 402) {
+					 		$("#log").html("The apikey you entered is not valid, you have to buy the service");
+					 		alert('Apikey not valid, you have to pay the service');
 					 	}else{
 					 		$("#log").html("error");
 					 	}
@@ -221,6 +221,7 @@
 
 					});
 				});
+				
 
  			});
 
@@ -346,7 +347,7 @@
 				<label class="active" for="apikey"> Apikey </label>
 			</div>
 			<div class="col-xs-6">				
-			    <input id="apikey" name="apikey" type="text" class="form-control" value="b3b1f308-20e2-65b2-7fa7-4ef28fe78030">
+			    <input id="apikey" name="apikey" type="text" class="form-control" value="multiPlan_C4_sos-2016-14-jhv_ag">
 			</div>		
 			
 			<div class="col-xs-4">
@@ -421,6 +422,8 @@
   				<button type="button" id="button-pst" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Entry</button>
 			</form>
 			<hr>			
-			
+		<input id="url" size= "50" value="/api/v1/gold-medals?apikey=sosrw" />
+		<button type="button" id="btn" class="btn btn-info"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>AJAX Request
+		</button>
 	</div>
 </body></html>

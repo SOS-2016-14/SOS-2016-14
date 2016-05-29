@@ -1,0 +1,72 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    
+    <script type="text/javascript">
+    	google.charts.load('current', {'packages': ['geochart']});
+
+    	$(document).ready(()  =>{
+    	
+    	var request = $.ajax({
+     		type: "GET",
+            url: "/api/v1/consumissions?all=1&apikey=multiPlan_C4_sos-2016-14-jhv_ag",
+            contentType: "application/json"
+     	});
+     	
+
+
+     	
+
+     	var dataArray=[];
+        request.done(function(data,status){
+          for (i=0;i<data.result.length;i++){
+            var item=data.result[i];
+            
+			var request2 = $.ajax({
+	     		type: "GET",
+	            url: "/tiempo?q="+item.city,
+	            contentType: "application/json",
+	            async: false
+	     	});
+			request2.done(function(data1,status1){
+            	$('table tbody').append('<tr><td>'+item.city+'</td><td>'+item.year+'</td><td>'+data1.weather[0].description+'</td>><td><img src="http://openweathermap.org/img/w/'+data1.weather[0].icon+'.png"/></td></tr>');
+			});
+          }
+         
+		  $('table').DataTable();
+		  
+        });
+
+	});
+    </script>
+  </head>
+  <body>
+    <center>
+    	<table id="example" class="display" cellspacing="0" width="100%">
+    		<thead>
+	    		<tr>
+	    			<th>
+	    				Ciudad
+	    			</th>
+	    			<th>
+	    				Año
+	    			</th>
+	    			<th>
+	    				Tiempo
+	    			</th>
+	    			<th>
+	    				Icono
+	    			</th>
+	    		</tr>
+			</thead>
+			<tbody>			
+			</tbody>
+    	</table>	
+    </center>
+  </body>
+</html>

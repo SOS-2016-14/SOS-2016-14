@@ -1,3 +1,5 @@
+
+
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -10,7 +12,7 @@
     	$(document).ready(()  =>{
      	var request = $.ajax({
      		type: "GET",
-            url: "/api/v1/consumissions?apikey=multiPlan_C4_sos-2016-14-jhv_ag&all=1",
+            url: "/api/v1/gold-medals?apikey=multiPlan_C4_sos-2016-05-meu_ag",
             contentType: "application/json"
      	});
 
@@ -20,11 +22,11 @@
      		function drawMarkersMap() {
       			
       			console.log(dataFromServer);
-      			var dataForWidget = [["Cities", "Categories"]];
-      			for(i=0; i<dataFromServer.result.length;i++){
-      				item = dataFromServer.result[i];
+      			var dataForWidget = [["countries", "years"]];
+      			for(i=0; i<dataFromServer.length;i++){
+      				item = dataFromServer[i];
       				console.log(item);
-      				var itemForWidget = [item.city, item.category];
+      				var itemForWidget = [item.country, item.year];
       				dataForWidget.push(itemForWidget);
       			}
       			console.log(dataForWidget);
@@ -32,7 +34,7 @@
       			var data = google.visualization.arrayToDataTable(dataForWidget);
 
       			var options = {
-	       			 region: 'ES',
+	       			 region: 'world',
 	      			  displayMode: 'markers',
 	       			 colorAxis: {colors: ['green', 'blue']}
       				};
@@ -65,5 +67,3 @@
     </center>
   </body>
 </html>
-
-
