@@ -44,9 +44,6 @@ app.use(pathsJaime, function(req,res){
 });
 
 
-
-
-
 app.use("/tiempo", function(req, res) {
 	var q = req.query.q;
 	var paths1='/data/2.5/weather?q='+q+'&APPID=537fae442cf69dd0a1e985b9aa6119c0'; 
